@@ -1,0 +1,26 @@
+# Enable C++ support
+language: cpp
+
+matrix:
+  include:
+    sudo: required
+    dist: trusty
+    addons:
+      apt:
+        sources:
+          - llvm-toolchain-trusty-6.0
+          - ubuntu-toolchain-r-test
+        packages:
+          - clang-6.0
+          - g++-7
+    env:
+      - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
+
+before_install:
+  - eval "${MATRIX_EVAL}"
+  - sudo apt-get update -qq
+  - sudo apt-get install -y cmake ninja-build
+
+# Build steps
+script:
+  - ./build
