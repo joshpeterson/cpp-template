@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+if [ ! -d artifacts ]; then
+  mkdir artifacts
+fi
+cd artifacts
+if [ ! -d Release ]; then
+  mkdir Release
+fi
+cd Release
+CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Release ../.. -GNinja
+ninja
+./test/tests
+cd ../..

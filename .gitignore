@@ -1,0 +1,5 @@
+artifacts/
+*.swp
+*.swo
+tags
+compile_commands.json

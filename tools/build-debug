@@ -1,0 +1,15 @@
+#!/bin/sh
+set -e
+if [ ! -d artifacts ]; then
+  mkdir artifacts
+fi
+cd artifacts
+if [ ! -d Debug ]; then
+  mkdir Debug
+fi
+cd Debug
+CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug ../.. -GNinja
+ninja
+./test/tests
+cd ../..
+ln -sf artifacts/Debug/compile_commands.json compile_commands.json

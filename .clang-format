@@ -1,0 +1,7 @@
+﻿UseTab: Never
+IndentWidth: 2
+BreakBeforeBraces: Allman
+AllowShortIfStatementsOnASingleLine: false
+IndentCaseLabels: false
+ColumnLimit: 80
+PointerAlignment: Left
