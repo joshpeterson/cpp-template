@@ -8,7 +8,11 @@ if [ ! -d Debug ]; then
   mkdir Debug
 fi
 cd Debug
-CXX=clang++ cmake -DCMAKE_BUILD_TYPE=Debug ../.. -GNinja
+# Default to clang, but use CXX if it is set already.
+if [ -z "$CXX" ]; then
+  export CXX=clang++
+fi
+cmake -DCMAKE_BUILD_TYPE=Debug ../.. -GNinja
 ninja
 ./test/tests
 cd ../..

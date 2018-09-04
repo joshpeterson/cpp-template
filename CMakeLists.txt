@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.9)
 
-project(cpp-template)
+project(cpp-template CXX)
 
 if (MSVC)
   add_compile_options(/W4 /WX)
