@@ -8,8 +8,14 @@ if [ ! -d Release ]; then
   mkdir Release
 fi
 cd Release
-# Default to clang, but use CXX if it is set already.
+if [ -z "$COMPILER" ]; then
+  echo "COMPILER is not defined, using CXX from the environment"
+else
+  echo "COMPILER is defined, use it: CXX=$COMPILER"
+  export CXX=$COMPILER
+fi
 if [ -z "$CXX" ]; then
+  echo "CXX is not set, using clang by default"
   export CXX=clang++
 fi
 cmake -DCMAKE_BUILD_TYPE=Release ../.. -GNinja

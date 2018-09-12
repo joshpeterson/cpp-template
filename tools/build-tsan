@@ -4,10 +4,10 @@ if [ ! -d artifacts ]; then
   mkdir artifacts
 fi
 cd artifacts
-if [ ! -d Debug ]; then
-  mkdir Debug
+if [ ! -d Tsan ]; then
+  mkdir Tsan
 fi
-cd Debug
+cd Tsan
 if [ -z "$COMPILER" ]; then
   echo "COMPILER is not defined, using CXX from the environment"
 else
@@ -17,8 +17,7 @@ fi
 if [ -z "$CXX" ]; then
   export CXX=clang++
 fi
-cmake -DCMAKE_BUILD_TYPE=Debug ../.. -GNinja
+cmake -DSANITIZE_THREAD=On ../.. -GNinja
 ninja
 ./test/tests
 cd ../..
-ln -sf artifacts/Debug/compile_commands.json compile_commands.json

@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+echo Running address sanitizer
+./tools/build-asan
+echo Running thread sanitizer
+./tools/build-tsan
+echo Running undfined behavior sanitizer
+./tools/build-ubsan
