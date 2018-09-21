@@ -77,7 +77,7 @@ The project integrates with a few other tools to aid in development.
 
 These tooling scripts are configured to run on Linux.
 
-### License
+## License
 
 This project is available in the public domain.
 
