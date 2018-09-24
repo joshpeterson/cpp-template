@@ -17,32 +17,50 @@ I like to use this project as a starting point for C++ projects. It has builds,
 tests, code formatting, static and dynamic analysis, and CI integration set up and
 ready to go.
 
+### Quick start
+
+The
+[cpp-template-installer.py](https://github.com/joshpeterson/cpp-template/blob/master/cpp-template-installer.py)
+script can be used to quickly create a project (you'll need to have
+[python](https://www.python.org/) installed):
+
+```
+> curl https://raw.githubusercontent.com/joshpeterson/cpp-template/master/cpp-template-installer.py | python - <my project name>
+```
+
+Just replace `<my project name>` with the name of your project.
+
+### Manual installation
+
+These are the step the python script above performs. You can do them manually as
+well:
+
 1. Clone or download the source code.
 2. Remove the `.git/` directory, if is exists.
 3. Search the project for "cpp-template" and replace it with the name of your
-   project.
+project.
 5. Replace this README.md file with one for your project.
 
 ## Building
 
 On Linux, you will need a C++ compiler installed, then run:
+
 ```
-> sudo apt install cmake ninja-build
-> git clone git@github.com:joshpeterson/cpp-template.git
-> ./build
+> sudo apt install cmake ninja-build git clone
+> git@github.com:joshpeterson/cpp-template.git ./build
 ```
 
 On macOS, you will need to have Xcode installed, then run:
+
 ```
-> brew install cmake ninja git clone
-> git@github.com:joshpeterson/cpp-template.git
+> brew install cmake ninja git clone git@github.com:joshpeterson/cpp-template.git
 > ./build
 ```
 
 On Windows, you will need have Visual Studio installed with C++ tools, then run:
+
 ```
-> git clone git@github.com:joshpeterson/cpp-template.git
-> build
+> git clone git@github.com:joshpeterson/cpp-template.git build
 ```
 
 The build output should live in a directory named `artifacts`.
