@@ -46,21 +46,24 @@ project.
 On Linux, you will need a C++ compiler installed, then run:
 
 ```
-> sudo apt install cmake ninja-build git clone
-> git@github.com:joshpeterson/cpp-template.git ./build
+> sudo apt install cmake ninja-build
+> git clone git@github.com:joshpeterson/cpp-template.git
+> ./build
 ```
 
 On macOS, you will need to have Xcode installed, then run:
 
 ```
-> brew install cmake ninja git clone git@github.com:joshpeterson/cpp-template.git
+> brew install cmake ninja
+> git clone git@github.com:joshpeterson/cpp-template.git
 > ./build
 ```
 
 On Windows, you will need have Visual Studio installed with C++ tools, then run:
 
 ```
-> git clone git@github.com:joshpeterson/cpp-template.git build
+> git clone git@github.com:joshpeterson/cpp-template.git
+> build
 ```
 
 The build output should live in a directory named `artifacts`.
