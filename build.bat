@@ -1,4 +1,5 @@
 @echo off
+
 echo Building in debug for win32
 call tools\build-win32-debug.bat || exit /b 1
 
