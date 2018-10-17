@@ -8,9 +8,7 @@ if [ ! -d Release ]; then
   mkdir Release
 fi
 cd Release
-if [ -z "$COMPILER" ]; then
-  echo "COMPILER is not defined, using CXX from the environment"
-else
+if [ -n "$COMPILER" ]; then
   echo "COMPILER is defined, use it: CXX=$COMPILER"
   export CXX=$COMPILER
 fi
