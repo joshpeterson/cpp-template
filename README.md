@@ -3,12 +3,9 @@
 [![Build
 Status](https://travis-ci.org/joshpeterson/cpp-template.svg?branch=master)](https://travis-ci.org/joshpeterson/cpp-template)
 
-[![Build
-status](https://ci.appveyor.com/api/projects/status/78t33iqkomacq601/branch/master?svg=true)](https://ci.appveyor.com/project/joshpeterson/cpp-template/branch/master)
-
 This is a template project for C++. It uses [CMake](https://cmake.org/) to build
 and [Catch](https://github.com/catchorg/Catch2) for unit tests. It is integrated
-with Travis CI and Appveyor CI, and builds on Windows, macOS, and Linux. It
+with Travis CI, and builds on Windows, macOS, and Linux. It
 consists of one static library, one main function, and one test executable.
 
 ## How to use this project
