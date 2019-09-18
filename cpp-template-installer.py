@@ -21,7 +21,7 @@ if len(sys.argv) != 2:
 projectName = sys.argv[1]
 
 print("==> Cloning cpp-template into {0}".format(projectName))
-status = call(["git", "clone", "https://github.com/joshpeterson/cpp-template.git", projectName])
+status = call(["git", "clone", "--recurse-submodules", "https://github.com/joshpeterson/cpp-template.git", projectName])
 if status != 0:
     sys.exit(status)
 
