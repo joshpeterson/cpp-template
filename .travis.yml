@@ -2,52 +2,41 @@
 language: cpp
 
 stages:
-  - format
-  - static analysis
+  - prebuild
   - build
-  - address sanitizer
-  - thread sanitizer
-  - undefined behavior sanitizer
+  - sanitizers
 
 jobs:
   include:
-    - stage: format
-      dist: trusty
-      script: ./tools/run-clang-format.py -r src test
-    - stage: static analysis
-      dist: trusty
-      script: ./tools/tidy
+    - stage: prebuild
+      name: "Verify code formating"
+      services:
+        - docker
+      script:
+        - docker run -v $(pwd):/src petersonjm1/clang bash -c "cd src; ./tools/run-clang-format.py -r src test bench"
+    - stage: prebuild
+      name: "Static analysis"
+      services:
+        - docker
+      script:
+        - docker run -v $(pwd):/src petersonjm1/clang bash -c "cd src; ./tools/tidy"
+    - stage: build
+      name: "Clang 10"
+      services:
+        - docker
+      script:
+        - docker run -v $(pwd):/src petersonjm1/clang bash -c "cd src; COMPILER=clang++ ./build"
+    - stage: build
+      name: "GCC 10"
+      services:
+        - docker
+      script:
+        - docker run -v $(pwd):/src petersonjm1/gcc bash -c "cd src; COMPILER=g++ ./build"
     - stage: build
       os: osx
-      script: ./build
-    - stage: build
-      os: linux
-      sudo: required
-      dist: trusty
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-6.0
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-6.0
-            - ninja-build
-      env: COMPILER=clang++-6.0
-      script: ./build
-    - stage: build
-      os: linux
-      sudo: required
-      dist: trusty
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-7
-            - ninja-build
-      env: COMPILER=g++-7
+      before_install:
+        - brew update
+        - brew install ninja
       script: ./build
     - stage: build
       os: windows
@@ -56,57 +45,22 @@ jobs:
       script:
         - export PATH=$MSBUILD_PATH:$PATH
         - ./build.bat
-    - stage: address sanitizer
-      os: linux
+    - stage: sanitizers
+      name: "Address sanitizer"
       sudo: required
-      dist: trusty
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-6.0
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-6.0
-            - ninja-build
-      env: COMPILER=clang++-6.0
-      script: ./tools/build-asan
-    - stage: thread sanitizer
-      os: linux
-      sudo: required
-      dist: trusty
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-6.0
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-6.0
-            - ninja-build
-      env: COMPILER=clang++-6.0
-      script: ./tools/build-tsan
-    - stage: undefined behavior sanitizer
-      os: linux
-      sudo: required
-      dist: trusty
-      before_install: false
-      addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-6.0
-            - ubuntu-toolchain-r-test
-          packages:
-            - clang-6.0
-            - ninja-build
-      env: COMPILER=clang++-6.0
-      script: ./tools/build-ubsan
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-6.0 main"; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-add-repository "deb http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu trusty main"; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -y --allow-unauthenticated libllvm6.0 libstdc++6 clang-format-6.0 clang-tidy-6.0; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install ninja; fi
+      services:
+        - docker
+      script:
+        - docker run --privileged -v $(pwd):/src petersonjm1/clang bash -c "cd src; ./tools/build-asan"
+    - stage: sanitizers
+      name: "Thread sanitizer"
+      services:
+        - docker
+      script:
+        - docker run -v $(pwd):/src petersonjm1/clang bash -c "cd src; ./tools/build-tsan"
+    - stage: sanitizers
+      name: "Undefined behavior sanitizer"
+      services:
+        - docker
+      script:
+        - docker run -v $(pwd):/src petersonjm1/clang bash -c "cd src; ./tools/build-ubsan"
