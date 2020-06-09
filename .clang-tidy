@@ -1,7 +1,33 @@
 ---
-Checks:          '*,-clang-analyzer-alpha.deadcode.UnreachableCode,-readability-braces-around-statements,-cppcoreguidelines-pro-type-reinterpret-cast,-modernize-pass-by-value,-cert-err58-cpp,-fuchsia-default-arguments'
-WarningsAsErrors: '*,-clang-analyzer-alpha.deadcode.UnreachableCode,-readability-braces-around-statements,-cppcoreguidelines-pro-type-reinterpret-cast,-modernize-pass-by-value,-cert-err58-cpp,-fuchsia-default-arguments'
-HeaderFilterRegex: ''
+Checks: >
+  *,
+  -clang-analyzer-alpha.deadcode.UnreachableCode,
+  -readability-braces-around-statements,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  -modernize-pass-by-value,
+  -cert-err58-cpp,
+  -fuchsia-default-arguments,
+  -hicpp-braces-around-statements,
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -hicpp-no-array-decay,
+  -google-runtime-references,
+  -android-cloexec-fopen,
+  -llvm-header-guard,
+  -fuchsia-statically-constructed-objects,
+  -google-build-using-namespace,
+  -modernize-use-trailing-return-type,
+  -fuchsia-default-arguments-calls,
+  -readability-magic-numbers,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-avoid-c-arrays,
+  -hicpp-avoid-c-arrays,
+  -modernize-avoid-c-arrays,
+  -llvm-qualified-auto,
+  -readability-qualified-auto,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic
+WarningsAsErrors: '*'
+HeaderFilterRegex: 'src/.*'
 AnalyzeTemporaryDtors: false
 User:            josh
 CheckOptions:
@@ -66,19 +92,19 @@ CheckOptions:
   - key:             readability-function-size.StatementThreshold
     value:           '800'
   - key:             readability-identifier-naming.AbstractClassCase
-    value:           aNy_CasE
+    value:           CamelCase
   - key:             readability-identifier-naming.AbstractClassPrefix
     value:           ''
   - key:             readability-identifier-naming.AbstractClassSuffix
     value:           ''
   - key:             readability-identifier-naming.ClassCase
-    value:           aNy_CasE
+    value:           CamelCase
   - key:             readability-identifier-naming.ClassConstantCase
-    value:           aNy_CasE
+    value:           pascalCase
   - key:             readability-identifier-naming.ClassConstantPrefix
     value:           ''
   - key:             readability-identifier-naming.ClassConstantSuffix
-    value:           ''
+    value:           '_'
   - key:             readability-identifier-naming.ClassMemberCase
     value:           aNy_CasE
   - key:             readability-identifier-naming.ClassMemberPrefix
@@ -86,7 +112,7 @@ CheckOptions:
   - key:             readability-identifier-naming.ClassMemberSuffix
     value:           ''
   - key:             readability-identifier-naming.ClassMethodCase
-    value:           aNy_CasE
+    value:           CamelCase
   - key:             readability-identifier-naming.ClassMethodPrefix
     value:           ''
   - key:             readability-identifier-naming.ClassMethodSuffix
@@ -96,13 +122,13 @@ CheckOptions:
   - key:             readability-identifier-naming.ClassSuffix
     value:           ''
   - key:             readability-identifier-naming.ConstantCase
-    value:           aNy_CasE
+    value:           camelCase
   - key:             readability-identifier-naming.ConstantMemberCase
     value:           aNy_CasE
   - key:             readability-identifier-naming.ConstantMemberPrefix
     value:           ''
   - key:             readability-identifier-naming.ConstantMemberSuffix
-    value:           ''
+    value:           '_'
   - key:             readability-identifier-naming.ConstantParameterCase
     value:           aNy_CasE
   - key:             readability-identifier-naming.ConstantParameterPrefix
@@ -114,7 +140,7 @@ CheckOptions:
   - key:             readability-identifier-naming.ConstantSuffix
     value:           ''
   - key:             readability-identifier-naming.ConstexprFunctionCase
-    value:           aNy_CasE
+    value:           CamelCase
   - key:             readability-identifier-naming.ConstexprFunctionPrefix
     value:           ''
   - key:             readability-identifier-naming.ConstexprFunctionSuffix
@@ -126,7 +152,7 @@ CheckOptions:
   - key:             readability-identifier-naming.ConstexprMethodSuffix
     value:           ''
   - key:             readability-identifier-naming.ConstexprVariableCase
-    value:           aNy_CasE
+    value:           pascalCase
   - key:             readability-identifier-naming.ConstexprVariablePrefix
     value:           ''
   - key:             readability-identifier-naming.ConstexprVariableSuffix
@@ -150,7 +176,7 @@ CheckOptions:
   - key:             readability-identifier-naming.FunctionSuffix
     value:           ''
   - key:             readability-identifier-naming.GlobalConstantCase
-    value:           aNy_CasE
+    value:           CamelCase
   - key:             readability-identifier-naming.GlobalConstantPrefix
     value:           ''
   - key:             readability-identifier-naming.GlobalConstantSuffix
@@ -170,13 +196,13 @@ CheckOptions:
   - key:             readability-identifier-naming.IgnoreFailedSplit
     value:           '0'
   - key:             readability-identifier-naming.InlineNamespaceCase
-    value:           aNy_CasE
+    value:           lower_case
   - key:             readability-identifier-naming.InlineNamespacePrefix
     value:           ''
   - key:             readability-identifier-naming.InlineNamespaceSuffix
     value:           ''
   - key:             readability-identifier-naming.LocalConstantCase
-    value:           aNy_CasE
+    value:           pascalCase
   - key:             readability-identifier-naming.LocalConstantPrefix
     value:           ''
   - key:             readability-identifier-naming.LocalConstantSuffix
@@ -222,7 +248,7 @@ CheckOptions:
   - key:             readability-identifier-naming.PrivateMemberPrefix
     value:           ''
   - key:             readability-identifier-naming.PrivateMemberSuffix
-    value:           ''
+    value:           '_'
   - key:             readability-identifier-naming.PrivateMethodCase
     value:           aNy_CasE
   - key:             readability-identifier-naming.PrivateMethodPrefix
@@ -254,7 +280,7 @@ CheckOptions:
   - key:             readability-identifier-naming.PublicMethodSuffix
     value:           ''
   - key:             readability-identifier-naming.StaticConstantCase
-    value:           aNy_CasE
+    value:           CamelCase
   - key:             readability-identifier-naming.StaticConstantPrefix
     value:           ''
   - key:             readability-identifier-naming.StaticConstantSuffix
@@ -266,7 +292,7 @@ CheckOptions:
   - key:             readability-identifier-naming.StaticVariableSuffix
     value:           ''
   - key:             readability-identifier-naming.StructCase
-    value:           aNy_CasE
+    value:           CamelCase
   - key:             readability-identifier-naming.StructPrefix
     value:           ''
   - key:             readability-identifier-naming.StructSuffix
